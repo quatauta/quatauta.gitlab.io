@@ -1,0 +1,28 @@
+image: ruby:2.6.5
+
+variables:
+  NO_CONTRACTS: "true"
+
+before_script:
+  - gem install bundler
+  - bundle install
+
+build:
+  stage: build
+  script:
+  - bundle exec middleman build --build-dir=build
+  artifacts:
+    paths:
+    - build
+  except:
+  - master
+
+pages:
+  stage: deploy
+  script:
+  - bundle exec middleman build
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
