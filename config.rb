@@ -25,7 +25,7 @@ configure :build do
   activate :external_pipeline, name: "gulp", command: "NODE_ENV=production npm run build", source: "./tmp/gulp", latency: 1
   activate :gzip
   activate :minify_css
-  activate :minify_javascript
+ #activate :minify_javascript
   activate :relative_assets
 
   activate :imageoptim do |imageoptim|
