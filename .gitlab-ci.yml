@@ -1,10 +1,5 @@
 image: ruby:2.7.2
 
-#cache:
-#  paths:
-#    - node_modules
-#    - vendor
-
 variables:
   BUNDLE_DEPLOYMENT: "true"
   BUNDLE_FROZEN: "true"
@@ -20,46 +15,44 @@ ruby_nodejs:
   script:
     - mkdir -p /kaniko/.docker
     - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
-    - echo "${RUBY_NODEJS_IMAGE}"
     - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${RUBY_NODEJS_IMAGE}"
 
-test_build:
-  stage: test
+.middleman:
   image: ${RUBY_NODEJS_IMAGE}
-  script:
+  before_script:
     - ruby --version
     - bundle --version
     - node --version
     - npm --version
     - ./bin/setup
+  cache:
+    paths:
+      - node_modules
+      - vendor
+
+test_build:
+  extends: .middleman
+  stage: test
+  script:
     - bundle exec middleman build --build-dir=build
   artifacts:
     paths:
-    - build
-  cache:
-    paths:
-      - node_modules
-      - vendor
+      - build
   except:
-  - main
-  - master
+    - main
+    - master
 
 pages:
   stage: deploy
+  extends: .middleman
   script:
-    - ruby --version
-    - bundle --version
-    - node --version
-    - npm --version
-    - ./bin/setup
     - bundle exec middleman build
   artifacts:
     paths:
-    - public
-  cache:
-    paths:
-      - node_modules
-      - vendor
+      - public
+  environment:
+    name: pages
+    url: https://quatauta.gitlab.io/
   only:
-  - main
-  - master
+    - main
+    - master
