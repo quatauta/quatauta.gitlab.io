@@ -20,6 +20,7 @@ ruby_nodejs:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - Dockerfile
+        - .dockerignore
 
 .middleman:
   image: ${RUBY_NODEJS_IMAGE}
