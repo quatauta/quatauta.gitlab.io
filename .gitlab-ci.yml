@@ -42,7 +42,7 @@ test_build:
     - main
     - master
 
-pages:
+build_pages:
   stage: test
   extends: .middleman
   script:
