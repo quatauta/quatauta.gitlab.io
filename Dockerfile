@@ -15,4 +15,5 @@ apt-get install -qq -y apt-utils ; \
 apt-get upgrade -qq -y ; \
 apt-get install -qq -y nodejs ; \
 apt-get clean -qq ; \
+gem update ; \
 gem install bundler
