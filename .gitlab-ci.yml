@@ -36,48 +36,30 @@ test_build:
   artifacts:
     paths:
     - build
+  cache:
+    paths:
+      - node_modules
+      - vendor
   except:
   - main
   - master
 
-#build:
-#  stage: build
-#  script:
-#    - curl -sL https://deb.nodesource.com/setup_15.x | bash -
-#    - apt-get update -qq
-#    - apt-get install -qq -y apt-utils
-#    - apt-get upgrade -qq -y
-#    - apt-get install -qq -y nodejs
-#    - ruby --version
-#    - bundle --version
-#    - node --version
-#    - npm --version
-#    - ./bin/setup
-#    - bundle exec middleman build --build-dir=build
-#  artifacts:
-#    paths:
-#    - build
-#  except:
-#  - main
-#  - master
-#
-#pages:
-#  stage: deploy
-#  script:
-#    - curl -sL https://deb.nodesource.com/setup_15.x | bash -
-#    - apt-get update -qq
-#    - apt-get install -qq -y apt-utils
-#    - apt-get upgrade -qq -y
-#    - apt-get install -qq -y nodejs
-#    - ruby --version
-#    - bundle --version
-#    - node --version
-#    - npm --version
-#    - ./bin/setup
-#    - bundle exec middleman build
-#  artifacts:
-#    paths:
-#    - public
-#  only:
-#  - main
-#  - master
+pages:
+  stage: deploy
+  script:
+    - ruby --version
+    - bundle --version
+    - node --version
+    - npm --version
+    - ./bin/setup
+    - bundle exec middleman build
+  artifacts:
+    paths:
+    - public
+  cache:
+    paths:
+      - node_modules
+      - vendor
+  only:
+  - main
+  - master
