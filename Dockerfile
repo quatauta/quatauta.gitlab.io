@@ -17,15 +17,16 @@ apt-get install -qq -y nodejs ; \
 apt-get clean -qq ; \
 gem install bundler
 
-WORKDIR /builds/project-0
+RUN mkdir -p /middleman-bundle
 
 COPY \
 Gemfile \
 Gemfile.lock \
 package.json \
 package-lock.json \
-/builds/project-0/
+/middleman-bundle/
 
 RUN \
+cd /middleman-bundle ; \
 bundle install --quiet ; \
 npm install

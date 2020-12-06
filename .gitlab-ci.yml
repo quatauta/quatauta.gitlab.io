@@ -20,8 +20,22 @@ build_image:
     - mkdir -p /kaniko/.docker
     - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
     - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
-# only:
-#  - tags
+
+build:
+  stage: test
+  image: registry.gitlab.com/quatauta/quatauta.gitlab.io:${CI_COMMIT_REF_SLUG}
+  script:
+    - pwd
+    - ls -lhA
+    - ls -lhA /middleman-bundle
+    - cp -r /middleman-bundle/* .
+    - bundle exec middleman build --build-dir=build
+  artifacts:
+    paths:
+    - build
+  except:
+  - main
+  - master
 
 #build:
 #  stage: build
