@@ -27,7 +27,6 @@ test_build:
   stage: test
   image: ${RUBY_NODEJS_IMAGE}
   script:
-    - bundle exec middleman build --build-dir=build
     - ruby --version
     - bundle --version
     - node --version
