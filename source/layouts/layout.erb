@@ -1,10 +1,10 @@
 <!doctype html>
-<html>
+<html lang="<%= current_page.data.lang || "en" %>">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The website of Quatauta on GitLab build with GitLab Pages and Middleman">
     <!-- Use the title from a page's frontmatter if it has one -->
     <title><%= current_page.data.title || "Middleman" %></title>
     <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
@@ -17,7 +17,7 @@
       <%= yield %>
     </article>
 
-    <aside>
+    <aside class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
       <h2>Recent Articles</h2>
       <ol>
         <% blog.articles[0...10].each do |article| %>
