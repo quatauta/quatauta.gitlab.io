@@ -16,17 +16,3 @@ apt-get upgrade -qq -y ; \
 apt-get install -qq -y nodejs ; \
 apt-get clean -qq ; \
 gem install bundler
-
-RUN mkdir -p /middleman-bundle
-
-COPY \
-Gemfile \
-Gemfile.lock \
-package.json \
-package-lock.json \
-/middleman-bundle/
-
-RUN \
-cd /middleman-bundle ; \
-bundle install --quiet ; \
-npm install

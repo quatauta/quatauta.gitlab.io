@@ -10,6 +10,7 @@ variables:
   BUNDLE_FROZEN: "true"
   DEBIAN_FRONTEND: "noninteractive"
   NO_CONTRACTS: "true"
+  RUBY_NODEJS_IMAGE: ${CI_REGISTRY_IMAGE}-ruby-nodejs:${CI_COMMIT_REF_SLUG}
 
 build_image:
   stage: build
@@ -19,16 +20,18 @@ build_image:
   script:
     - mkdir -p /kaniko/.docker
     - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
-    - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}"
+    - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${RUBY_NODEJS_IMAGE}$"
 
 build:
   stage: test
-  image: registry.gitlab.com/quatauta/quatauta.gitlab.io:${CI_COMMIT_REF_SLUG}
+  image: ${RUBY_NODEJS_IMAGE}
   script:
-    - pwd
-    - ls -lhA
-    - ls -lhA /middleman-bundle
-    - cp -r /middleman-bundle/* .
+    - bundle exec middleman build --build-dir=build
+    - ruby --version
+    - bundle --version
+    - node --version
+    - npm --version
+    - ./bin/setup
     - bundle exec middleman build --build-dir=build
   artifacts:
     paths:
