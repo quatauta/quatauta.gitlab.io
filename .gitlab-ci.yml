@@ -31,6 +31,7 @@ build:
     paths:
     - build
   except:
+  - main
   - master
 
 pages:
@@ -41,4 +42,5 @@ pages:
     paths:
     - public
   only:
+  - main
   - master
