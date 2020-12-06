@@ -1,9 +1,9 @@
 image: ruby:2.7.2
 
-cache:
-  paths:
-    - node_modules
-    - vendor
+#cache:
+#  paths:
+#    - node_modules
+#    - vendor
 
 variables:
   BUNDLE_DEPLOYMENT: "true"
@@ -11,36 +11,56 @@ variables:
   DEBIAN_FRONTEND: "noninteractive"
   NO_CONTRACTS: "true"
 
-before_script:
-  - curl -sL https://deb.nodesource.com/setup_15.x | bash -
-  - apt-get update -qq
-  - apt-get install -qq -y apt-utils
-  - apt-get upgrade -qq -y
-  - apt-get install -qq -y nodejs
-  - ruby --version
-  - bundle --version
-  - node --version
-  - npm --version
-  - ./bin/setup
-
-build:
+build_image:
   stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
   script:
-  - bundle exec middleman build --build-dir=build
-  artifacts:
-    paths:
-    - build
-  except:
-  - main
-  - master
+    - mkdir -p /kaniko/.docker
+    - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
+    - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+# only:
+#  - tags
 
-pages:
-  stage: deploy
-  script:
-  - bundle exec middleman build
-  artifacts:
-    paths:
-    - public
-  only:
-  - main
-  - master
+#build:
+#  stage: build
+#  script:
+#    - curl -sL https://deb.nodesource.com/setup_15.x | bash -
+#    - apt-get update -qq
+#    - apt-get install -qq -y apt-utils
+#    - apt-get upgrade -qq -y
+#    - apt-get install -qq -y nodejs
+#    - ruby --version
+#    - bundle --version
+#    - node --version
+#    - npm --version
+#    - ./bin/setup
+#    - bundle exec middleman build --build-dir=build
+#  artifacts:
+#    paths:
+#    - build
+#  except:
+#  - main
+#  - master
+#
+#pages:
+#  stage: deploy
+#  script:
+#    - curl -sL https://deb.nodesource.com/setup_15.x | bash -
+#    - apt-get update -qq
+#    - apt-get install -qq -y apt-utils
+#    - apt-get upgrade -qq -y
+#    - apt-get install -qq -y nodejs
+#    - ruby --version
+#    - bundle --version
+#    - node --version
+#    - npm --version
+#    - ./bin/setup
+#    - bundle exec middleman build
+#  artifacts:
+#    paths:
+#    - public
+#  only:
+#  - main
+#  - master
