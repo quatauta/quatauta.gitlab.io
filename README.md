@@ -14,7 +14,7 @@
 1. Open `https://<username>.gitlab.io/<project-name>` link in your browser.
 1. Click on `Edit this page` button on the bottom of the website.
 1. Use the Static Site Editor to make changes to the content and save the changes by creating a merge request.
-1. Merge your merge request to master branch.
+1. Merge your merge request to main branch.
 1. GitLab CI will automatically apply changes to your website.
 
 ## Local development
