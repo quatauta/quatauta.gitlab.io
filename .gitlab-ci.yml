@@ -12,7 +12,7 @@ variables:
   NO_CONTRACTS: "true"
   RUBY_NODEJS_IMAGE: "${CI_REGISTRY_IMAGE}:ruby-nodejs-${CI_COMMIT_REF_SLUG}"
 
-build_ruby_nodejs:
+ruby_nodejs:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
@@ -23,7 +23,7 @@ build_ruby_nodejs:
     - echo "${RUBY_NODEJS_IMAGE}"
     - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${RUBY_NODEJS_IMAGE}"
 
-test_middleman:
+test_build:
   stage: test
   image: ${RUBY_NODEJS_IMAGE}
   script:
