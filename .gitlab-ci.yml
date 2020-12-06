@@ -28,6 +28,7 @@ ruby_nodejs:
   cache:
     paths:
       - node_modules
+      - public
       - vendor
 
 test_build:
@@ -42,8 +43,8 @@ test_build:
     - main
     - master
 
-build_pages:
-  stage: test
+pages:
+  stage: deploy
   extends: .middleman
   script:
     - bundle exec middleman build
