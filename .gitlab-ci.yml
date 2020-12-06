@@ -17,8 +17,7 @@ ruby_nodejs:
     - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
     - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${RUBY_NODEJS_IMAGE}"
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
+    - changes:
         - Dockerfile
         - .dockerignore
 
