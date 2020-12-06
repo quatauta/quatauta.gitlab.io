@@ -10,7 +10,7 @@ variables:
   BUNDLE_FROZEN: "true"
   DEBIAN_FRONTEND: "noninteractive"
   NO_CONTRACTS: "true"
-  RUBY_NODEJS_IMAGE: ${CI_REGISTRY_IMAGE}-ruby-nodejs:${CI_COMMIT_REF_SLUG}
+  RUBY_NODEJS_IMAGE: "${CI_REGISTRY_IMAGE}:ruby-nodejs-${CI_COMMIT_REF_SLUG}"
 
 build_ruby_nodejs:
   stage: build
