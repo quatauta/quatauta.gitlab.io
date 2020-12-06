@@ -7,11 +7,38 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Use the title from a page's frontmatter if it has one -->
     <title><%= current_page.data.title || "Middleman" %></title>
+    <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
     <%= stylesheet_link_tag "site" %>
     <%= javascript_include_tag "site" %>
   </head>
   <body>
-    <%= yield %>
+
+    <article id="main" role="main" class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
+      <%= yield %>
+    </article>
+
+    <aside>
+      <h2>Recent Articles</h2>
+      <ol>
+        <% blog.articles[0...10].each do |article| %>
+          <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+        <% end %>
+      </ol>
+
+      <h2>Tags</h2>
+      <ol>
+        <% blog.tags.each do |tag, articles| %>
+          <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
+        <% end %>
+      </ol>
+
+      <h2>By Year</h2>
+      <ol>
+        <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
+          <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
+        <% end %>
+      </ol>
+    </aside>
 
     <div class="edit-page">
       <%= link_to('Edit this page', edit_page_url(data.config.repository, current_page.file_descriptor.relative_path), id: 'edit-page-link') %>

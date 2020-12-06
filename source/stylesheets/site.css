@@ -1,0 +1,19 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "components/default";
+
+.edit-page {
+  position: fixed;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: #6b4fbb;
+  bottom: 0px;
+  width: 150px;
+  border-radius: 25px 25px 0px 0px;
+}
+
+a#edit-page-link {
+  color: #fff;
+  text-decoration: none;
+}

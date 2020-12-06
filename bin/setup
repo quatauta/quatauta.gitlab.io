@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# export BUNDLE_DEPLOYMENT="true"
+export BUNDLE_JOBS="$(nproc)"
+export MAKEOPTS="-j$(nproc)"
+export BUNDLE_DISABLE_PLATFORM_WARNINGS="true"
+
+gem install bundler
+bundle install --quiet
+npm install

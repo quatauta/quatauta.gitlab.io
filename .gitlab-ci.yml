@@ -1,11 +1,27 @@
-image: ruby:2.6.5
+image: ruby:2.7.2
+
+cache:
+  paths:
+    - node_modules
+    - vendor
 
 variables:
+  BUNDLE_DEPLOYMENT: "true"
+  BUNDLE_FROZEN: "true"
+  DEBIAN_FRONTEND: "noninteractive"
   NO_CONTRACTS: "true"
 
 before_script:
-  - gem install bundler
-  - bundle install
+  - curl -sL https://deb.nodesource.com/setup_15.x | bash -
+  - apt-get update -qq
+  - apt-get install -qq -y apt-utils
+  - apt-get upgrade -qq -y
+  - apt-get install -qq -y nodejs
+  - ruby --version
+  - bundle --version
+  - node --version
+  - npm --version
+  - ./bin/setup
 
 build:
   stage: build
