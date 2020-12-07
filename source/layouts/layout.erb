@@ -13,35 +13,37 @@
   </head>
   <body>
 
-    <article id="main" role="main" class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
+    <article id="main" role="main" class="mx-auto prose prose-sm sm:prose lg:prose-lg xl:prose-xl 2xl:prose-2xl py-4">
       <%= yield %>
     </article>
 
-    <aside class="prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
-      <h2>Recent Articles</h2>
+    <aside class="mx-auto max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl py-4">
+      <h2 class="font-bold pt-4">Recent Articles</h2>
       <ol>
         <% blog.articles[0...10].each do |article| %>
-          <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+          <li class="prose"><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
         <% end %>
       </ol>
 
-      <h2>Tags</h2>
-      <ol>
+      <h2 class="font-bold pt-4">Tags</h2>
+      <ol class="space-x-4">
         <% blog.tags.each do |tag, articles| %>
-          <li><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
+          <li class="inline"><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
         <% end %>
       </ol>
 
-      <h2>By Year</h2>
-      <ol>
+      <h2 class="font-bold pt-4">Archive</h2>
+      <ol class="space-x-4">
         <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
-          <li><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
+          <li class="inline"><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
         <% end %>
       </ol>
     </aside>
 
-    <div class="edit-page">
-      <%= link_to('Edit this page', edit_page_url(data.config.repository, current_page.file_descriptor.relative_path), id: 'edit-page-link') %>
+    <div class="absolute bottom-0 left-4">
+      <button class="bg-yellow-600 text-white py-1 px-3 rounded-2xl rounded-b-none">
+        <%= link_to('Edit this page', edit_page_url(data.config.repository, current_page.file_descriptor.relative_path), id: 'edit-page-link') %>
+      </button>
     </div>
   </body>
 </html>
