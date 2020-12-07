@@ -11,7 +11,7 @@
     <%= stylesheet_link_tag "site" %>
     <%= javascript_include_tag "site" %>
   </head>
-  <body>
+  <body class="px-1">
 
     <article id="main" role="main" class="mx-auto prose prose-sm sm:prose lg:prose-lg xl:prose-xl 2xl:prose-2xl py-4">
       <%= yield %>
@@ -38,9 +38,11 @@
           <li class="inline"><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
         <% end %>
       </ol>
+
+      <div class="py-4"></div>
     </aside>
 
-    <div class="absolute bottom-0 left-4">
+    <div class="fixed bottom-0 left-4">
       <button class="bg-yellow-600 text-white py-1 px-3 rounded-2xl rounded-b-none">
         <%= link_to('Edit this page', edit_page_url(data.config.repository, current_page.file_descriptor.relative_path), id: 'edit-page-link') %>
       </button>
