@@ -1,4 +1,4 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.2-slim
 
 ENV \
 BUNDLE_DEPLOYMENT="true" \
@@ -9,10 +9,10 @@ DEBIAN_FRONTEND="noninteractive" \
 MAKEOPTS="-j8"
 
 RUN \
-curl -sL https://deb.nodesource.com/setup_15.x | bash - ; \
 apt-get update -qq ; \
-apt-get install -qq -y apt-utils ; \
+apt-get install -qq -y apt-utils build-essential curl ; \
 apt-get upgrade -qq -y ; \
+curl -sL https://deb.nodesource.com/setup_15.x | bash - ; \
 apt-get install -qq -y nodejs ; \
 apt-get clean -qq ; \
 gem update ; \
