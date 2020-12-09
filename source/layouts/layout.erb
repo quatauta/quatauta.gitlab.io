@@ -13,15 +13,15 @@
   </head>
   <body class="px-1">
 
-    <article id="main" role="main" class="mx-auto prose prose-sm sm:prose lg:prose-lg xl:prose-xl 2xl:prose-2xl py-4">
+    <article id="main" role="main" class="mx-auto py-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
       <%= yield %>
     </article>
 
-    <aside class="mx-auto max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl py-4">
+    <aside class="mx-auto py-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
       <h2 class="font-bold pt-4">Recent Articles</h2>
       <ol>
         <% blog.articles[0...10].each do |article| %>
-          <li class="prose"><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
+          <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
         <% end %>
       </ol>
 
