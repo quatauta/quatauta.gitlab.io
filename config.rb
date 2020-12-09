@@ -1,3 +1,16 @@
+set :markdown_engine, :redcarpet
+set :markdown,
+  autolink: true,
+  fenced_code_blocks: true,
+  lax_spacing: true,
+  no_intra_emphasis: true,
+  space_after_headers: true,
+  strikethrough: true,
+  superscript: true,
+  tables: true
+
+activate :syntax, :line_numbers => true
+
 activate :autoprefixer do |prefix|
   prefix.browsers = "last 2 versions"
 end
