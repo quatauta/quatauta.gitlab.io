@@ -1,10 +1,10 @@
 ---
-title: Times & Dates in web browser timezone with Rails 6
+title: Times & Dates in web browser timezone with Ruby on Rails 6.0
 date: 2020-12-06
 tags: time, date, timezone, rails
 ---
 
-Times & Dates in web browser timezone with Ruby&nbsp;on&nbsp;Rails&nbsp;6
+Times & Dates in web browser timezone with Ruby&nbsp;on&nbsp;Rails&nbsp;6.0
 ===
 
 I like to have times and dates presented in the user's timezone.
