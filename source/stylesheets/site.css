@@ -3,3 +3,16 @@
 @import "tailwindcss/utilities";
 @import "components/default";
 @import "components/syntax";
+
+@layer base {
+  h1, h2, h3 { @apply mt-4 mb-2; }
+  h1 { @apply text-2xl font-bold }
+  h2 { @apply text-xl font-bold }
+  h3 { @apply text-lg font-bold italic; }
+  p + p { @apply mt-4; }
+  article ol { @apply py-4 list-inside list-decimal; }
+  article ul { @apply py-4 list-inside list-disc; }
+  article a { @apply underline text-green-700; }
+  article { hyphens: auto; }
+  pre.highlight { @apply mb-4 text-sm overflow-x-auto; }
+}

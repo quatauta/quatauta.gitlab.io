@@ -13,33 +13,33 @@
   </head>
   <body class="px-1">
 
-    <article id="main" role="main" class="mx-auto py-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+    <article id="main" role="main" class="mx-auto my-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
       <%= yield %>
     </article>
 
-    <aside class="mx-auto py-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-      <h2 class="font-bold pt-4">Recent Articles</h2>
+    <aside class="mx-auto my-4 max-w-prose text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+      <h2>Recent Articles</h2>
       <ol>
         <% blog.articles[0...10].each do |article| %>
           <li><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></li>
         <% end %>
       </ol>
 
-      <h2 class="font-bold pt-4">Tags</h2>
-      <ol class="space-x-4">
+      <h2>Tags</h2>
+      <ol>
         <% blog.tags.each do |tag, articles| %>
           <li class="inline"><%= link_to "#{tag} (#{articles.size})", tag_path(tag) %></li>
         <% end %>
       </ol>
 
-      <h2 class="font-bold pt-4">Archive</h2>
-      <ol class="space-x-4">
+      <h2>Archive</h2>
+      <ol>
         <% blog.articles.group_by {|a| a.date.year }.each do |year, articles| %>
           <li class="inline"><%= link_to "#{year} (#{articles.size})", blog_year_path(year) %></li>
         <% end %>
       </ol>
 
-      <div class="py-4"></div>
+      <div class="my-4"></div>
     </aside>
 
     <div class="fixed bottom-0 left-4">
