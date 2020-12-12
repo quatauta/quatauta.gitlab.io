@@ -33,6 +33,9 @@ hugo:
   stage: test
   script:
     - hugo
+  artifacts:
+    paths:
+      - public
   except:
     - main
     - master
