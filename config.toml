@@ -1,0 +1,87 @@
+theme = "bento"
+languageCode = "en-us"
+baseurl = "https://quatauta.gitlab.io/"
+title = "Random Thoughts"
+
+author = "Daniel Schömer"
+copyright = "MIT"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+# Better code higlighting
+# via https://discourse.gohugo.io/t/pygmentscodefences-how-to-choose-themes/3842/3
+pygmentsCodefences = true
+pygmentsStyle = "vs"
+
+# Integrations
+googleAnalytics = ""
+disqusShortname = ""
+
+# Hightlight theme
+[markup.highlight]
+  style = "github"
+
+# Allow HTML rendering inside markdown
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params]
+  # Show intro in the home page (with headline and description)
+  intro = true
+  headline = "This is a headline"
+  description = "A minimalist theme for Hugo, build with Tailwind CSS."
+
+  # Copyright note in the footer
+  copyright = "Copyright © 2020 Daniel Schömer"
+
+  # Image in the homepage. You can setup a different image for social media
+  cover = "images/vancouver.jpg"
+  ogImage = "images/og_image.jpg"
+
+  # Social media usernames
+  github = "quatauta"
+  gitlab = "quatauta"
+  twitter = "quatauta"
+  linkedin = "https://linkedin.com/in/daniel-schoemer"
+  email = "daniel.schoemer@hey.com"
+
+  # Learn more about webmention 
+  # https://sebastiandedeyne.com/adding-webmentions-to-my-blog/
+  # webmention = ""
+  # productionBaseUrl is need if you want to receive webmentions in local environment
+  # productionBaseUrl = "https://yourwebsite.com"
+
+  # Avatar (shown in the homepage)
+  avatar = "images/avatar.jpg"
+  # Bio is shown in the end of posts
+  authorBio = "DevOps Engineer with a fabile for Ruby and Elixir"
+
+# If you want to use fathom (https://usefathom.com) for analytics, add this section
+[params.fathomAnalytics]
+  siteID = ""
+  # Default value is cdn.usefathom.com, overwrite this if you are self-hosting
+  serverURL = ""
+
+# If you want to use umami (https://umami.is/) for analytics, add this section
+[params.umami]
+  siteID = ""
+  trackerScript = "//umami.example.com/umami.js"
+
+# Items in the top menu
+[menu]
+  [[menu.main]]
+      name = "About"
+      url = "/about"
+      weight = 1
+
+  [[menu.main]]
+      name = "Archives"
+      url = "/archives"
+      weight = 1
+
+  [[menu.main]]
+      name = "Source code"
+      url = "https://gitlab.com/quatauta/quatauta.gitlab.io"
+      weight = 1

@@ -1,63 +1,81 @@
-image: ruby:2.7.2
+# .gitlab-ci.yml - See https://docs.gitlab.com/ee/ci/yaml
 
 variables:
-  BUNDLE_DEPLOYMENT: "true"
-  BUNDLE_FROZEN: "true"
-  DEBIAN_FRONTEND: "noninteractive"
-  NO_CONTRACTS: "true"
-  RUBY_NODEJS_IMAGE: "${CI_REGISTRY_IMAGE}/ruby-nodejs:${CI_COMMIT_REF_SLUG}"
+  GIT_DEPTH: "3"
+  GIT_SUBMODULE_STRATEGY: "recursive"
 
-ruby_nodejs:
-  stage: build
+stages:
+  - build
+  - lint
+  - test
+  - deploy
+
+.hugo:
+  # Hugo container images in GitLab Container Registry: https://gitlab.com/pages/hugo/container_registry
+  # image: registry.gitlab.com/pages/hugo:latest
+  # Hugo container image including Node.js for the webpacker asset pipeline
   image:
-    name: gcr.io/kaniko-project/executor:debug
+    name: klakegg/hugo:ext-alpine
     entrypoint: [""]
-  script:
-    - mkdir -p /kaniko/.docker
-    - printf '{"auths":{"%s":{"username":"%s","password":"%s"}}}\n' "${CI_REGISTRY}" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" > /kaniko/.docker/config.json
-    - /kaniko/executor --cache --context "${CI_PROJECT_DIR}" --dockerfile "${CI_PROJECT_DIR}/Dockerfile" --destination "${RUBY_NODEJS_IMAGE}"
-  rules:
-    - changes:
-        - Dockerfile
-        - .dockerignore
-
-.middleman:
-  image: ${RUBY_NODEJS_IMAGE}
-  before_script:
-    - ruby --version
-    - bundle --version
-    - node --version
-    - npm --version
-    - ./bin/setup
   cache:
     paths:
       - node_modules
       - public
-      - vendor
+      - resources
 
-test_build:
-  extends: .middleman
+build:
+  extends: .hugo
+  stage: build
+  script:
+    - npm install
+
+hugo:
+  extends: .hugo
   stage: test
   script:
-    - bundle exec middleman build --build-dir=build
-  artifacts:
-    paths:
-      - build
-  except:
-    - main
-    - master
+    - hugo
+  rules:
+    - if: '"$${CI_DEFAULT_BRANCH}" != "${CI_COMMIT_BRANCH}"'
 
 pages:
+  extends: .hugo
   stage: deploy
-  extends: .middleman
   script:
-    - bundle exec middleman build
+    - hugo
   artifacts:
     paths:
       - public
-  environment:
-    name: pages
-    url: https://quatauta.gitlab.io/
-  only:
-    - main
-    - master
+  rules:
+    - if: '"$${CI_DEFAULT_BRANCH}" == "${CI_COMMIT_BRANCH}"'
+
+eslint:
+  stage: lint
+  image: pipelinecomponents/eslint:latest
+  before_script:
+    - touch dummy.js
+  script:
+    - eslint $( [[ -e .eslintrc ]] || echo '--no-eslintrc' ) --color .
+
+markdownlint:
+  stage: lint
+  image:
+    name: thegeeklab/markdownlint-cli:latest
+    entrypoint: ["/bin/ash", "-c"]
+  script:
+    - markdownlint-cli .
+
+stylelint:
+  stage: lint
+  image: pipelinecomponents/stylelint:latest
+  script:
+    - stylelint --color '**/*.css'
+  rules:
+    - allow_failure: true
+
+yamllint:
+  stage: lint
+  image:
+    name: cytopia/yamllint:latest
+    entrypoint: ["/bin/ash", "-c"]
+  script:
+    - yamllint -f colored .
