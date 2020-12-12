@@ -20,7 +20,6 @@ stages:
   cache:
     paths:
       - node_modules
-      - public
       - resources
 
 build:
