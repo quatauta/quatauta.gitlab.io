@@ -70,9 +70,7 @@ stylelint:
   stage: lint
   image: pipelinecomponents/stylelint:latest
   script:
-    - stylelint --color '**/*.css'
-  rules:
-    - allow_failure: true
+    - stylelint --color '**/*.css' || true
 
 yamllint:
   stage: lint
