@@ -39,7 +39,7 @@ hugo:
 
 pages:
   extends: .hugo
-  stage: deploy
+  stage: test
   script:
     - hugo
   artifacts:
