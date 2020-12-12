@@ -34,8 +34,9 @@ hugo:
   stage: test
   script:
     - hugo
-  rules:
-    - if: '"$${CI_DEFAULT_BRANCH}" != "${CI_COMMIT_BRANCH}"'
+  except:
+    - main
+    - master
 
 pages:
   extends: .hugo
@@ -45,8 +46,9 @@ pages:
   artifacts:
     paths:
       - public
-  rules:
-    - if: '"$${CI_DEFAULT_BRANCH}" == "${CI_COMMIT_BRANCH}"'
+  only:
+    - main
+    - master
 
 eslint:
   stage: lint
