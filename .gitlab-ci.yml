@@ -46,6 +46,9 @@ pages:
   artifacts:
     paths:
       - public
+  environment:
+    name: Gitlab Pages
+    url: https://quatauta.gitlab.io/
   only:
     - main
     - master
