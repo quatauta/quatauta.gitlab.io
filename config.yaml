@@ -28,6 +28,8 @@ params:
   email: daniel.schoemer@hey.com
   avatar: images/avatar.jpg
   authorBio: DevOps Engineer with a fabile for Ruby and Elixir
+  hideComments: true
+  hideSuggestions: true
 permalinks:
   post: /post/:year/:monthname/:day/:slug/
 menu:
