@@ -1,0 +1,47 @@
+theme: bento
+languageCode: en-us
+baseurl: 'https://quatauta.gitlab.io/'
+title: Random Thoughts
+author: Daniel Schömer
+copyright: MIT
+taxonomies:
+  category: categories
+  tag: tags
+markup:
+  highlight:
+    style: github
+  goldmark:
+    renderer:
+      unsafe: true
+params:
+  intro: true
+  headline: This is a headline
+  description: 'A minimalist theme for Hugo, build with Tailwind CSS.'
+  copyright: Copyright © 2020 Daniel Schömer
+  cover: images/vancouver.jpg
+  ogImage: images/og_image.jpg
+  github: quatauta
+  gitlab: quatauta
+  twitter: quatauta
+  linkedin: 'https://linkedin.com/in/daniel-schoemer'
+  email: daniel.schoemer@hey.com
+  avatar: images/avatar.jpg
+  authorBio: DevOps Engineer with a fabile for Ruby and Elixir
+  fathomAnalytics:
+    siteID: ''
+    serverURL: ''
+  umami:
+    siteID: ''
+    trackerScript: //umami.example.com/umami.js
+menu:
+  main:
+    - name: About
+      url: /about
+      weight: 1
+    - name: Archives
+      url: /archives
+      weight: 1
+    - name: Source code
+      url: 'https://gitlab.com/quatauta/quatauta.gitlab.io'
+      weight: 1
+
