@@ -1,4 +1,5 @@
 theme: bento
+contentDir: source
 languageCode: en-us
 baseurl: 'https://quatauta.gitlab.io/'
 title: Random Thoughts
