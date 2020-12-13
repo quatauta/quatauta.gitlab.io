@@ -3,6 +3,11 @@
   {{ .Site.Params.copyright }}
 </footer>
 
+{{ if .File.Path }}
+<a class="block fixed bottom-0 left-4 py-1 px-3 rounded-2xl rounded-b-none bg-yellow-600 text-white"
+   href="https://gitlab.com/quatauta/quatauta.gitlab.io/-/sse/master%2Fsource%2F{{ replace .File.Path "/" "%2F" }}">Edit this page</a>
+{{ end }}
+
 <script>
   var initMenu = () => {
     var navButtons = document.querySelectorAll('.nav-button');
