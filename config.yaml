@@ -16,8 +16,8 @@ markup:
       unsafe: true
 params:
   intro: true
-  headline: This is a headline
-  description: 'A minimalist theme for Hugo, build with Tailwind CSS.'
+  headline: 'Headline'
+  description: 'Description'
   copyright: Copyright © 2020 Daniel Schömer
   cover: images/vancouver.jpg
   ogImage: images/og_image.jpg
@@ -28,12 +28,8 @@ params:
   email: daniel.schoemer@hey.com
   avatar: images/avatar.jpg
   authorBio: DevOps Engineer with a fabile for Ruby and Elixir
-  fathomAnalytics:
-    siteID: ''
-    serverURL: ''
-  umami:
-    siteID: ''
-    trackerScript: //umami.example.com/umami.js
+permalinks:
+  post: /post/:year/:monthname/:day/:slug/
 menu:
   main:
     - name: About
