@@ -10,15 +10,6 @@ copyright = "MIT"
 category = "categories"
 tag = "tags"
 
-# Better code higlighting
-# via https://discourse.gohugo.io/t/pygmentscodefences-how-to-choose-themes/3842/3
-pygmentsCodefences = true
-pygmentsStyle = "vs"
-
-# Integrations
-googleAnalytics = ""
-disqusShortname = ""
-
 # Hightlight theme
 [markup.highlight]
   style = "github"

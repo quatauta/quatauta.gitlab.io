@@ -7,17 +7,14 @@
   "author": "Daniel Schömer <daniel.schoemer@hey.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "hugo server --disableFastRender",
-    "dev:example": "hugo server --verbose -s exampleSite --themesDir=../.. --disableFastRender",
-    "build": "NODE_ENV=production hugo --verbose --gc --minify",
-    "build:example": "NODE_ENV=production hugo --verbose --gc --minify -s exampleSite --themesDir=../..",
-    "start": "hugo --gc"
+    "build": "rm -rf public/ ; NODE_ENV=production hugo --verbose --gc --minify && ./bin/compress-public",
+    "dev": "hugo server --disableFastRender"
   },
   "devDependencies": {
     "@tailwindcss/ui": "^0.7.2",
     "autoprefixer": "^10.0.3",
     "postcss": "^8.1.10",
-    "postcss-cli": "^8.3.0",
+    "postcss-cli": "^8.3.1",
     "postcss-import": "^13.0.0",
     "tailwindcss": "^2.0.1"
   },

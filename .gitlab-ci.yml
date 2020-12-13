@@ -8,6 +8,7 @@ stages:
   - build
   - lint
   - test
+  - generate
   - deploy
 
 .hugo:
@@ -20,34 +21,26 @@ stages:
   cache:
     paths:
       - node_modules
-      - resources
-
-build:
-  extends: .hugo
-  stage: build
   script:
+    - rm -rf public/
     - npm install
+    - rm -rf public/
+    - NODE_ENV=production hugo --verbose --gc --minify
+    - ./bin/compress-public
+  artifacts:
+    paths:
+      - public
 
 hugo:
   extends: .hugo
   stage: test
-  script:
-    - hugo
-  artifacts:
-    paths:
-      - public
   except:
     - main
     - master
 
 pages:
   extends: .hugo
-  stage: test
-  script:
-    - hugo
-  artifacts:
-    paths:
-      - public
+  stage: generate
   environment:
     name: Gitlab Pages
     url: https://quatauta.gitlab.io/
