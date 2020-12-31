@@ -209,7 +209,6 @@ html {
 .article code, tt {
   padding: 1px 3px;
   @apply font-mono;
-  @apply text-lg;
 
   white-space: pre-wrap;
   border: #E3EDF3 1px solid;
