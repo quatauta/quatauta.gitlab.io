@@ -4,23 +4,23 @@ date: 2020-12-06
 tags: ["time", "date", "timezone", "rails"]
 ---
 
-With Ruby on Rails 6, I like to have times and dates presented in the user's timezonea.
+With Ruby on Rails 6, I like to have times and dates presented in the user's timezone.
 
 ## Basecamp's `local_time`
 
-My first search results lead me to Basecamp's [`local_time`](https: //github.com/basecamp/local_time/) ruby gem for Ruby on Rails. It makes it easy to diesplay times and dates in the local timezon of the user. Times and dates are rendered to `<time`> elements in UTC, and user agent JavaScript converts those to the local timezone.
+My first search results lead me to Basecamp's [`local_time`](https://github.com/basecamp/local_time/) ruby gem for Ruby on Rails. It makes it easy to display times and dates in the local timezone of the user. Ruby on Rails renders times and dates to `<time`> elements in UTC timezone. User-agent JavaScript converts those to the local timezone of the user's web browser.
 
-Pretty nice and very cache friendly, as all pages/partials with times and dates contain the same HTML with UTC times and dates.
+`local_time` is very cache-friendly, as all pages/partials with times and dates contain the same HTML with UTC times and dates.
 
-Unfortunately, I was not skilled enought to add internationalization or localization of the time and date formates to `local_time`. Whatever I tried, I ended up with a weird mix of localized and not-localized time/date formats and translations for weekdays and month.
+Unfortunately, I was not skilled enough to add internationalization or localization of the time and date formats to `local_time`. Whatever I tried, I ended up with a weird mix of localized and not-localized time/date formats and translations for weekdays and months.
 
-`local_time` includes US English internationalization/localization of the JavaScript part in [`i18n.coffee`](https://github.com/quatauta/local_time/blob/master/lib/assets/javascripts/src/local-time/config/i18n.coffee) . The [ruby gem](https://rubygems.org/gems/local_time) delivers a [minimized JavaScript asset](https://github.com/quatauta/local_time/blob/master/app/assets/javascripts/local-time.js) which I was not able to enrich with time/date formats and translations in other languages. Most likely because of all the advancements in the JavaScript ecosystem. And those are not covered by the [internationalization section](https://github.com/basecamp/local_timeconfiguration) of `local_time`'s documentation.
+`local_time` includes US English internationalization/localization of the JavaScript part in [`i18n.coffee`](https://github.com/quatauta/local_time/blob/master/lib/assets/javascripts/src/local-time/config/i18n.coffee) . The [ruby gem](https://rubygems.org/gems/local_time) delivers a [minimized JavaScript asset](https://github.com/quatauta/local_time/blob/master/app/assets/javascripts/local-time.js) for localization. I was not able to enrich it with time/date formats and translations in other languages. Maybe because of all the advancements in the JavaScript ecosystem. I was not able to interpret the [internationalization section](https://github.com/basecamp/local_timeconfiguration) of `local_time`'s documentation :-(
 
-## Custom with JavaScript, Cookies and ApplicationController
+## Custom with JavaScript, Cookies, and `ApplicationController`
 
-Due to my inability to add translations to `local_time`'s JavaScript, I droped `local_time` (until I advance to the required level) und did something custom with JavaScript, cookies and ApplicationController `around_action`.
+Due to my inability to add translations to `local_time`'s JavaScript, I dropped `local_time` (until I advance to the required level) and did something custom with JavaScript, cookies, and ApplicationController `around_action`.
 
-1. Page contains JavaScript to get the local timezone with [`Intl.DateTimeFormat().resolvedOptions().timeZone`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/resolvedOptions). The timezone is added to cookie `timezone`.
+1. The web page contains JavaScript to get the local timezone with [`Intl.DateTimeFormat().resolvedOptions().timeZone`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/resolvedOptions). The JavaScript code adds the web browser's timezone to the `timezone` cookie.
 1. On the next request, the browser sends cookie `timezone` to Rails
 1. Rails `ApplicationController` takes the timezone from cookie `timezone` and uses [`Times#use_zone`](https://api.rubyonrails.org/classes/Time.HTMLmethodmethod-c-use_zone) in [`around_action`](https://api.rubyonrails.org/classes/AbstractController/Callbacks/ClassMethods.HTMLmethod-i-around_action) to change the timezone for this request
 1. The view renders times and dates in the current timezone
@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-```erb
+```plaintext
 # app/views/articles/show.html.erb
 <p><strong>Title:</strong> <%= article.title %></p>
 <p><strong>Text:</strong> <%= article.text %></p>
