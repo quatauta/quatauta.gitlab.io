@@ -6,6 +6,8 @@ title: Random Thoughts
 author: Daniel Schömer
 copyright: MIT
 enableEmoji: true
+enableGitInfo: true
+enableRobotsTXT: true
 taxonomies:
   category: categories
   tag: tags
