@@ -5,6 +5,7 @@ baseurl: 'https://quatauta.gitlab.io/'
 title: Random Thoughts
 author: Daniel Schömer
 copyright: MIT
+enableEmoji: true
 taxonomies:
   category: categories
   tag: tags
