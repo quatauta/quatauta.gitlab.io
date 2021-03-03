@@ -11,7 +11,6 @@
     "dev": "hugo server --disableFastRender"
   },
   "devDependencies": {
-    "@tailwindcss/ui": "^0.7.2",
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.6",
     "postcss-cli": "^8.3.1",
