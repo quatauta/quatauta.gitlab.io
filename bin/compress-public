@@ -3,7 +3,12 @@
 TO_COMPRESS_EXT=".txt .xml .html .css .js"
 BROTLI="$(command -v brotli)"
 GZIP="$(command -v gzip)"
-FIND_EXP="$(echo "${TO_COMPRESS_EXT}" | sed -e 's/[^ \t\n\r]\+/-iname *\0/g' -e 's/ -iname/ -or -iname/g')"
+
+for EXT in ${TO_COMPRESS_EXT} ; do
+    FIND_EXP="${FIND_EXP} -iname \"${EXT}\""
+done
+
+echo "${FIND_EXP}"
 
 for COMPRESSOR in ${GZIP} ${BROTLI} ; do
     find public/ -type f \( $FIND_EXP \) -print0 | xargs -0r "${COMPRESSOR}" -k -9
