@@ -6,8 +6,7 @@ tags: ["tailscale", "vpn", "router", "asuswrt", "asuswrt-merlin"]
 
 Experimenting with [Tailscale](https://tailscale.com/), I like to use my home network router as exit node while I am not at home.
 
-A Reddit thread provided most of the details:
-https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_my_asus_rtax82u_router/
+[A Reddit thread](https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_my_asus_rtax82u_router/) provided most of the details:
 
 > ### Making Tailscale working on my Asus RT-AX82U router
 >
@@ -18,8 +17,9 @@ https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_m
 > Another thing you need: A USB drive, depends on your usage you can choose whatever you want, since the space needed isn't that much. For me I am just putting a very old USB 2.0 1GB (Yes! 1GB not 1TB) on it, but if anyone else got other usage you might want to have a bigger disk.
 >
 > Plug the USB drive, SSH to router and install Entware Package Management tool, this is why you need the USB drive, but by default it only uses very little space that's why I am only using 1GB drive.
-> 
+>
 > Install the following packages:
+>
 > ```console
 > $ opkg install kmod-tun (this might not be needed, seems newer Entware has it already)
 > $ opkg install ca-bundle
@@ -29,14 +29,16 @@ https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_m
 >
 > Once it's done, execute /opt/etc/init.d/S06tailscaled start or reboot (I don't like to reboot that often), profit! Now you can follow the Tailscale Linux CLI guide to do what you need.
 
-A comment in the same threat added some details to start the Tailscale daemon at boot:
-https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_my_asus_rtax82u_router/ifm4q0r/
+[A comment in the same threat](https://www.reddit.com/r/Tailscale/comments/u3m83k/making_tailscale_working_on_my_asus_rtax82u_router/ifm4q0r/) added some details to start the Tailscale daemon at boot:
 
 > I did the following and Tailscale seems to start on boot with the router now:
+>
 > ```console
 > nano /jffs/scripts/post-mount
 > ```
+>
 > Added:
+>
 > ```text
 > sleep 20
 > /opt/etc/init.d/rc.unslung restart
