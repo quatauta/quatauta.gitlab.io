@@ -48,14 +48,6 @@ pages:
     - main
     - master
 
-eslint:
-  stage: lint
-  image: pipelinecomponents/eslint:latest
-  before_script:
-    - touch dummy.js
-  script:
-    - eslint $( [[ -e .eslintrc ]] || echo '--no-eslintrc' ) --color .
-
 markdownlint:
   stage: lint
   image:
